@@ -5,10 +5,45 @@ import Pagination from "../products/Pagination";
 
 interface ProductTableProps {
   data: Product[];
-  loading?: boolean;
+  loading: boolean;
+
+  onEditProduct: (product: Product) => void;
+  onSaveProduct: () => Promise<void>;
+
+  onEditVariant: (
+    productId: string,
+    variantId: string,
+    field: string,
+    value: unknown,
+  ) => void;
+
+  emptyMessage?: string;
+
+  onSaveVariant: () => Promise<void>;
+
+  onSellVariant: (productId: string, variantId: string) => void;
   onViewProduct: (product: Product) => void;
   onDeleteProduct: (productId: string) => Promise<void>;
-  emptyMessage?: string;
+
+  editingProduct: Product | null;
+  setEditingProduct: React.Dispatch<React.SetStateAction<Product | null>>;
+
+  editingVariant: {
+    productId: string;
+    variantId: string;
+    field: string;
+    value: unknown;
+  } | null;
+
+  setEditingVariant: React.Dispatch<
+    React.SetStateAction<{
+      productId: string;
+      variantId: string;
+      field: string;
+      value: unknown;
+    } | null>
+  >;
+
   currentPage: number;
   totalPages: number;
   totalItems: number;
